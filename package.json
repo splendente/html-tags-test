@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "biome": "pnpm dlx biome check --write ./**/*.{ts,tsx}",
+    "biome": "pnpm dlx biome format --write ./**/*.{ts,tsx}",
     "prepare": "husky"
   },
   "lint-staged": {
