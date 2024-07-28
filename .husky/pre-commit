@@ -1,1 +1,1 @@
-pnpm biome
+pnpm dlx lint-staged
