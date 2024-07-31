@@ -18,24 +18,17 @@ type TextFieldProps = {
   type: HTMLInputElement["type"];
 };
 
-type FormData = {
-  /**
-   * This is the value of the form
-   */
-  element: string;
-};
-
-export function Input({ id, label, type }: TextFieldProps) {
+export function FormInput({ id, label, type }: TextFieldProps) {
   const {
     register,
     formState: { errors },
-  } = useFormContext<FormData>();
+  } = useFormContext();
 
   return (
     <label htmlFor={id} className={styles.label}>
       <span>{label}</span>
       <input id={id} type={type} {...register(id)} />
-      <span className={styles.error}>{errors.element?.message}</span>
+      <span className={styles.error}>{errors[id]?.message}</span>
     </label>
   );
 }

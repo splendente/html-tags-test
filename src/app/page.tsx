@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { schema } from "@/libs/zod";
-import { Input } from "@/components/form-input";
+import { FormInput } from "@/components/form-input";
 import { Card } from "@/components/card";
 
 import type { FormData } from "@/types";
@@ -32,7 +32,7 @@ export default function Home() {
     <main>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Input id="element" label="HTML Tags" type="text" />
+          <FormInput id="element" label="HTML Tags" type="text" />
           <button type="submit">Submit</button>
         </form>
       </FormProvider>
