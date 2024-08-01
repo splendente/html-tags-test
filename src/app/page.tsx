@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/libs/zod";
 import { FormInput } from "@/components/form-input";
 import { Card } from "@/components/card";
@@ -10,7 +11,7 @@ import type { FormData } from "@/types";
 
 export default function Home() {
   const [elements, setElements] = useState<string[]>([]);
-  const methods = useForm();
+  const methods = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (formData: FormData) => {
     const result = schema.safeParse(formData);
