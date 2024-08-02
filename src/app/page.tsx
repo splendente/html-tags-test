@@ -8,10 +8,11 @@ import { FormInput } from "@/components/form-input";
 import { Card } from "@/components/card";
 
 import type { FormData } from "@/types";
+import type { Schema } from "@/libs/zod";
 
 export default function Home() {
   const [elements, setElements] = useState<string[]>([]);
-  const methods = useForm({ resolver: zodResolver(schema) });
+  const methods = useForm<Schema>({ resolver: zodResolver(schema) });
 
   const onSubmit = (formData: FormData) => {
     const result = schema.safeParse(formData);
