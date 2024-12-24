@@ -1,29 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "@/libs/zod";
-import { FormInput } from "@/components/form-input";
-import { Card } from "@/components/card";
+import { AppCard } from "@/components/app-card";
+import { AppForm } from "@/components/app-form";
 
 import type { FormData } from "@/types";
 import type { Schema } from "@/libs/zod";
 
 export default function Home() {
   const [elements, setElements] = useState<string[]>([]);
-  const methods = useForm<Schema>({ resolver: zodResolver(schema) });
+  const { reset, setError} = useForm<Schema>({ resolver: zodResolver(schema) });
 
+  /**
+   * Form submit handler
+   * @param formData
+   */
   const onSubmit = (formData: FormData) => {
     const result = schema.safeParse(formData);
     if (result.success) {
       if (!elements.includes(result.data.element)) {
         setElements([...elements, result.data.element]);
-        methods.reset();
+        reset();
       }
     }
     if (result.error) {
-      methods.setError("element", {
+      setError("element", {
         type: "custom",
         message: result.error.errors[0].message,
       });
@@ -31,22 +35,18 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormInput id="element" label="HTML Tags" type="text" />
-          <button type="submit">Submit</button>
-        </form>
-      </FormProvider>
-      <ol>
-        {elements.map((element) => {
+    <>
+      <h1 className="text-2xl font-bold mb-8">List of HTML Elements</h1>
+      <AppForm onSubmit={onSubmit} />
+      <ol className="flex flex-col gap-4 mt-8">
+        {elements.map((element, index) => {
           return (
             <li key={element}>
-              <Card name={element} />
+              <AppCard name={element} index={index+1} />
             </li>
           );
         })}
       </ol>
-    </main>
+    </>
   );
 }

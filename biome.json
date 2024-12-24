@@ -3,6 +3,10 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+		"ignoreUnknown": false,
+		"ignore": ["node_modules", "public", ".next", "src/components/ui"]
+	},
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
